@@ -1,13 +1,19 @@
-version: '3.3'
+version: '3.8'
+
 services:
-  dev:
+  # Common params between `dev` and `deploy`
+  deploy: &common
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - 127.0.0.1:8877:5011
-    volumes:
-      - .:/opt/app
     environment:
       DEV: 'True'
     # env_file: local.env
+    command: ["bash"]
+  dev:
+    <<: *common
+    volumes:
+      - .:/opt/app
+
