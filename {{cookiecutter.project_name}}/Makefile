@@ -14,9 +14,19 @@ setup: requirements.txt
 	@echo "=== Adding kernel for jupyter/lab"
 	$(PYTHON) -m ipykernel install --user --name={{cookiecutter.project_name}}
 
+setup_dev_env: Dockerfile docker-compose.yml
+	@echo "=== Building development environment image"
+	docker compose build dev
+	@echo "=== Running development environment container"
+	docker compose run --rm -dit deploy
+
+deploy_app: Dockerfile docker-compose.yml
+	@echo "=== Building development environment image"
+	docker compose build dev
+	@echo "=== Running development environment container"
+	docker compose run --rm -dit deploy
+
 clean:
 	rm -rf __pycache__
 	rm -rf $(VENV)
 
-#run: $(VENV)/bin/activate
-# $(PYTHON) app.py
