@@ -11,22 +11,23 @@ setup: requirements.txt
 	@echo "=== Installing packages"
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
+	@echo "=== Installing pre-commit hooks"
+	pre-commit install	
 	@echo "=== Adding kernel for jupyter/lab"
 	$(PYTHON) -m ipykernel install --user --name={{cookiecutter.project_name}}
 
 setup_dev_env: Dockerfile docker-compose.yml
-	@echo "=== Building development environment image"
-	docker compose build dev
-	@echo "=== Running development environment container"
-	docker compose run --rm -dit deploy
+	@echo "=== Building development environment image and run container in detached mode"
+	docker compose up --build -d dev
 
-deploy_app: Dockerfile docker-compose.yml
-	@echo "=== Building development environment image"
-	docker compose build dev
-	@echo "=== Running development environment container"
+setup_deploy_env: Dockerfile docker-compose.yml
+	@echo "=== Building deploy environment image"
+	docker compose build deploy --build-arg ENV=prod
+	@echo "=== Running deploy environment container"
 	docker compose run --rm -dit deploy
 
 clean:
 	rm -rf __pycache__
 	rm -rf $(VENV)
+	docker system prune
 

@@ -1,4 +1,10 @@
 {
   "project_name": null,
-  "python_version": "3.11.3"
+  "project_slug": "{{cookiecutter.project_name|lower|replace('-', '_')}}",
+  "python_version": "3.11.3",
+  "poetry_version": "1.4.2",
+  "author": "Frank Cao",
+  "email": "franktcao@gmail.com",
+  "author_github_handle" : "franktcao",
+  "project_description": ""
 }

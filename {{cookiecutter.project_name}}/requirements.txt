@@ -5,6 +5,7 @@ matplotlib
 pandas
 pandera
 poetry
+pre-commit
 pydantic
 numpy
 seaborn
