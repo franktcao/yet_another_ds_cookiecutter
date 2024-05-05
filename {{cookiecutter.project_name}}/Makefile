@@ -11,10 +11,11 @@ setup: requirements.txt
 	@echo "=== Installing packages"
 	$(PIP) install --upgrade pip
 	$(PIP) install -r requirements.txt
+	poetry shell
 	@echo "=== Installing pre-commit hooks"
 	pre-commit install	
 	@echo "=== Adding kernel for jupyter/lab"
-	$(PYTHON) -m ipykernel install --user --name={{cookiecutter.project_name}}
+	# $(PYTHON) -m ipykernel install --user --name={{cookiecutter.project_name}}
 
 setup_dev_env: Dockerfile docker-compose.yml
 	@echo "=== Building development environment image and run container in detached mode"
