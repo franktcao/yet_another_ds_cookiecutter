@@ -1,21 +1,29 @@
-VENV = .venv
-PYTHON = $(VENV)/bin/python
-PIP = $(VENV)/bin/pip
+.ONESHELL: # Runs all commands in single shell
+.PHONY: setup # Make setup (or other commands run on default)
+SHELL := /bin/bash # Use bash as shell instead of sh
+VENV = .venv # Virtual environment (relative) directory 
 
-setup: requirements.txt
+setup: pyproject.toml
 	@echo "=== Initializing git"
 	git init
-	@echo "=== Setting up and activating virtual environment"
+	@echo "=== Installing virtual environment (does not activate it!) and package manager ==="
 	python -m venv $(VENV)
-	source $(VENV)/bin/activate
-	@echo "=== Installing packages"
-	$(PIP) install --upgrade pip
-	$(PIP) install -r requirements.txt
-	poetry shell
-	@echo "=== Installing pre-commit hooks"
+	( \
+       . .venv/bin/activate; \
+			 pip install --upgrade pip; \
+			 pip install poetry; \
+	)
+	@echo "=== Install dependencies ==="
+	( \
+       . .venv/bin/activate; \
+       poetry install; \
+	)
+	@echo "=== Installing pre-commit hooks ==="
 	pre-commit install	
-	@echo "=== Adding kernel for jupyter/lab"
-	# $(PYTHON) -m ipykernel install --user --name={{cookiecutter.project_name}}
+	@echo "=== Setup complete ==="
+	@echo "To use environemtn, run `source .venv/bin/activate`"
+	#@echo "=== Adding kernel for jupyter/lab"
+	## $(PYTHON) -m ipykernel install --user --name=contraction
 
 setup_dev_env: Dockerfile docker-compose.yml
 	@echo "=== Building development environment image and run container in detached mode"

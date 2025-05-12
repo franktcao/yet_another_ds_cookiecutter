@@ -2,23 +2,25 @@
 requires = ["{{cookiecutter.poetry_version}}"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.poetry]
+[project]
 name = "{{cookiecutter.project_name}}"
 version = "0.1.0"
 description = "{{cookiecutter.project_description}}"
-authors = ["{{cookiecutter.author}} <{{cookiecutter.email}}>"]
+authors = [{name = "{{cookiecutter.author}}", email = "{{cookiecutter.email}}"}]
+dynamic = [ "version", "requires-python", "dependencies" ]
+
+[tool.poetry]
+package-mode = false
 
 [tool.poetry.dependencies]
-python = ">=3.10,<3.13"
-pandas = "^2.0.1"
-matplotlib = "^3.7.1"
-pandera = "^0.15.1"
-pydantic = "^1.10.7"
-numpy = "^1.24.3"
-seaborn = "^0.12.2"
-urllib3 = "1.26.15"  # Needed for a bug when running `poetry install` on docker (`strict` issue)
+python = "~{{cookiecutter.python_version}}"
+numpy = "*"
+pandas = "*"
+streamlit = "*"
+# urllib3 = "1.26.15"  # Needed for a bug when running `poetry install` on docker (`strict` issue)
 
-[tool.poetry.dev-dependencies]
-jupyter = "^1.0.0"
-jupyterlab = "^3.6.3"
-jupyterlab-vim = "^0.16.0"
+[tool.poetry.group.dev.dependencies]
+ipykernel = "*"
+# jupyter = "^1.0.0"
+# jupyterlab = "^3.6.3"
+# jupyterlab-vim = "^0.16.0"
