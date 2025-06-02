@@ -1,7 +1,7 @@
 .ONESHELL: # Runs all commands in single shell
 .PHONY: setup # Make setup (or other commands run on default)
 SHELL := /bin/bash # Use bash as shell instead of sh
-VENV = .venv # Virtual environment (relative) directory 
+VENV = .venv # Virtual environment (relative) directory
 
 setup: pyproject.toml
 	@echo "=== Initializing git"
@@ -19,7 +19,7 @@ setup: pyproject.toml
        poetry install; \
 	)
 	@echo "=== Installing pre-commit hooks ==="
-	pre-commit install	
+	pre-commit install
 	@echo "=== Setup complete ==="
 	@echo "To use environemtn, run `source .venv/bin/activate`"
 	#@echo "=== Adding kernel for jupyter/lab"
@@ -39,4 +39,3 @@ clean:
 	rm -rf __pycache__
 	rm -rf $(VENV)
 	docker system prune
-

@@ -16,7 +16,7 @@ To attach to the container, and run
 ```bash
 docker attach {{cookiecutter.project_slug}}_dev_inst
 ```
-This will attach to the interactive terminal in the container 
+This will attach to the interactive terminal in the container
 
 
 ```bash
