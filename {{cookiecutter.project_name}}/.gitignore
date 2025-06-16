@@ -1,6 +1,8 @@
+# Local environements and cache
 .venv/
 __pycache__/
 
+# Large and/or sensitive files
 data/*
 
 # OS Specific
