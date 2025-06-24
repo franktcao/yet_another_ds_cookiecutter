@@ -1,11 +1,12 @@
 .ONESHELL: # Runs all commands in single shell
 .PHONY: setup # Make setup (or other commands run on default)
-SHELL := /bin/bash # Use bash as shell instead of sh
 VENV = .venv # Virtual environment (relative) directory
 
-setup: pyproject.toml
+git:
 	@echo "=== Initializing git"
 	git init
+
+setup: pyproject.toml
 	@echo "=== Installing virtual environment (does not activate it!) and package manager ==="
 	python -m venv $(VENV)
 	( \
